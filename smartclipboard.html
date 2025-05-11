@@ -18,27 +18,84 @@
             margin-left: auto;
             margin-right: auto;
         }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        .modal-button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            border-radius: 4px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body class="bg-gray-100">
+
+
     <main class="container mt-8 p-4">
         <div class="bg-white rounded-lg p-6">
             <div class="flex flex-wrap items-start justify-between mb-4">
-                <h1 class="text-2xl font-semibold text-green-600 w-full md:w-auto mb-2 ">Smart Clipboard</h1>
+                <h1 class="text-2xl font-semibold text-green-600 w-full md:w-auto mb-2"></h1>
                 <div class="w-full md:w-auto flex flex-col items-end">
-                    <a href="smartclipboard-portable.hta" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center">
+                    <a href="smartclipboard-portable.hta" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center mb-2">
                         <i class="material-icons mr-2">download</i> Download Portable .hta
                     </a>
-                    <p class="text-xs text-blue-500 mt-1">Windows Only</p>
+                    <a id="viewWebAppButton" href="#" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded flex items-center">
+                        <i class="material-icons mr-2">visibility</i> View as Web App
+                    </a>
                 </div>
             </div>
             <p class="text-gray-600 mb-4">
                 Smart Clipboard is a free and open-source utility that extends the standard clipboard functionality with advanced features.
+                <br class="md:hidden">
             </p>
             <p class="text-gray-700 mb-4">
                 It allows you to manage and manipulate copied data more efficiently.
             </p>
         </div>
     </main>
+
+
+
+    <div id="warningModal" class="modal">
+        <div class="modal-content">
+            <p><strong>Warning:</strong> The buttons under "More..." may not function correctly in the web app version.</p>
+            <a id="closeModalButton" href="smartclipboardwebapp.html" class="modal-button">OK</a>
+        </div>
+    </div>
+
+    <script>
+        const viewWebAppButton = document.getElementById("viewWebAppButton");
+        const warningModal = document.getElementById("warningModal");
+
+
+        viewWebAppButton.addEventListener("click", function(event) {
+            event.preventDefault();
+            warningModal.style.display = "flex";
+        });
+
+
+    </script>
 </body>
 </html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smart Clipboard</title>
+    <hta:application id="SmartClipboard" border="thin" maximizebutton="yes" minimizebutton="yes" sysmenu="yes" contextmenu="no" />
+
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; }
+        #menu-bar {
+            width: 100%;
+            background-color: grey;
+            color: white;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        #app-title {
+            font-weight: bold;
+            margin-right: 15px;
+        }
+        #menu-container {
+            position: relative;
+        }
+        #submenu {
+            display: none;
+            position: absolute;
+            background: white;
+            color: black;
+            left: 0;
+            top: 100%;
+            width: 200px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border: 1px solid #ccc;
+            text-align: left;
+            z-index: 100;
+        }
+        #submenu div {
+            padding: 10px;
+            cursor: pointer;
+        }
+        #submenu div:hover {
+            background-color: #ddd;
+        }
+        #clipboard-container {
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            height: 150px;
+            overflow-y: auto;
+            background: #f9f9f9;
+            display: none;
+        }
+        #loadClipboardBtn {
+            margin-top: 10px;
+            padding: 8px;
+            cursor: pointer;
+        }
+    </style>
+
+    <script type="text/vbscript">
+        Sub RefreshPage
+            window.location.reload
+        End Sub
+
+        Sub ShowAbout
+            MsgBox "Smart Clipboard v1.0" & vbCrLf & "Developed by Free Tech Downloads" & vbCrLf & "Enhances clipboard management", vbInformation, "About Smart Clipboard"
+        End Sub
+
+        Sub CheckUpdates
+            MsgBox "Please go to freetechdownloads.github.io/smartclipboard to download a newer version.", vbInformation, "Smart Clipboard Update Manager"
+        End Sub
+
+        Sub LoadClipboard
+            Dim objIE, clipboardData
+            Set objIE = CreateObject("InternetExplorer.Application")
+            objIE.Navigate "about:blank"
+            clipboardData = objIE.document.parentWindow.clipboardData.GetData("Text")
+            objIE.Quit
+
+            document.getElementById("clipboard-container").innerHTML = clipboardData
+            document.getElementById("clipboard-container").style.display = "block"
+        End Sub
+    </script>
+</head>
+<body>
+    <div id="menu-bar">
+        <div id="app-title">Smart Clipboard</div>
+        <div id="menu-container" onmouseover="document.getElementById('submenu').style.display='block'" onmouseout="document.getElementById('submenu').style.display='none'">
+            More...
+            <div id="submenu">
+                <div onclick="RefreshPage">Refresh</div>
+                <div onclick="CheckUpdates">Check for Updates</div>
+                <div onclick="ShowAbout">About Smart Clipboard</div>
+            </div>
+        </div>
+    </div>
+
+    <h2>My Clipboard</h2>
+    <button id="loadClipboardBtn" onclick="LoadClipboard">Load Clipboard</button>
+    <div id="clipboard-container">Clipboard content will appear here...</div>
+</body>
+</html>
+
